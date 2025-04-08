@@ -5,25 +5,26 @@ var
   numbers: array[1..50] of integer;
   i: integer;
 
-//  (3.0)
-procedure GenerateRandomNumbers;
+//  (4.0)
+procedure GenerateRandomNumbers(from, to, count: integer);
 var
   j: integer;
 begin
   Randomize; 
-  for j := 1 to 50 do
-    numbers[j] := Random(101); 
+  for j := 1 to count do
+  begin
+    numbers[j] := from + Random(to - from + 1);
+  end;
 end;
-
 //  (3.5)
-procedure BubbleSort;
+procedure BubbleSort(count: integer);
 var
   j, temp: integer;
   swapped: boolean;
 begin
   repeat
     swapped := false;
-    for j := 1 to 49 do
+    for j := 1 to count - 1 do
     begin
       if numbers[j] > numbers[j + 1] then
       begin
@@ -37,9 +38,8 @@ begin
 end;
 
 begin
-  
-  GenerateRandomNumbers;
-  
+  clrscr; 
+  GenerateRandomNumbers(0, 100, 50);
   
   writeln('Nieposortowana lista:');
   for i := 1 to 50 do
@@ -49,10 +49,8 @@ begin
   end;
   writeln;
   
- 
-  BubbleSort;
+  BubbleSort(50);
   
-
   writeln('Posortowana lista:');
   for i := 1 to 50 do
   begin
@@ -60,5 +58,5 @@ begin
     if i mod 10 = 0 then writeln; 
   end;
   
-  readln; 
+  readln; //trzeba nacisnąć Enter żeby wyjść
 end.

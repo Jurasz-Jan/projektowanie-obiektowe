@@ -14,12 +14,19 @@ struct ProductController: RouteCollection {
 
     func index(req: Request) async throws -> View {
         let products = try await Product.query(on: req.db).with(\.$category).all()
-        return try await req.view.render("products", ["products": products])
+        struct ProductsContext: Encodable {
+            let products: [Product]
+        }
+        return try await req.view.render("products", ProductsContext(products: products))
     }
 
     func create(req: Request) async throws -> View {
         let categories = try await Category.query(on: req.db).all()
-        return try await req.view.render("product_form", ["categories": categories])
+        struct ProductFormContext: Encodable {
+            let product: Product?
+            let categories: [Category]
+        }
+        return try await req.view.render("product_form", ProductFormContext(product: nil, categories: categories))
     }
 
     func store(req: Request) async throws -> Response {
@@ -34,7 +41,11 @@ struct ProductController: RouteCollection {
             throw Abort(.notFound)
         }
         let categories = try await Category.query(on: req.db).all()
-        return try await req.view.render("product_form", ["product": product, "categories": categories])
+        struct ProductFormContext: Encodable {
+            let product: Product?
+            let categories: [Category]
+        }
+        return try await req.view.render("product_form", ProductFormContext(product: product, categories: categories))
     }
 
     func update(req: Request) async throws -> Response {

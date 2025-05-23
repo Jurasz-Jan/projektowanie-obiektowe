@@ -11,14 +11,15 @@ struct UserController: RouteCollection {
     func index(req: Request) async throws -> View {
         let users = try await User.query(on: req.db).all()
 
-        // Zapisz ostatniego użytkownika do Redis
-        if let redis = req.redis {
-            if let last = users.last {
-                try await redis.set("last_user", toJSON: last)
-            }
+        if let last = users.last {
+            try await req.redis.set("last_user", toJSON: last)
         }
 
-        return try await req.view.render("users", ["users": users])
+        struct UsersContext: Encodable {
+            let users: [User]
+        }
+
+        return try await req.view.render("users", UsersContext(users: users))
     }
 
     func store(req: Request) async throws -> Response {

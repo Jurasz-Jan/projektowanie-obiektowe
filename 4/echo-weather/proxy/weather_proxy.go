@@ -2,29 +2,45 @@ package proxy
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/go-resty/resty/v2"
 )
 
 type WeatherAPIResponse struct {
-	Main struct {
-		Temp float64 `json:"temp"`
-	} `json:"main"`
-	Weather []struct {
-		Description string `json:"description"`
-	} `json:"weather"`
+	CurrentCondition []struct {
+		Temp_C      string `json:"temp_C"`
+		WeatherDesc []struct {
+			Value string `json:"value"`
+		} `json:"weatherDesc"`
+	} `json:"current_condition"`
 }
 
 func GetWeatherData(city string) (float64, string, error) {
 	client := resty.New()
-	apiKey := "your_openweathermap_api_key"
-	resp, err := client.R().
-		Get("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric")
+
+	url := fmt.Sprintf("https://wttr.in/%s?format=j1", city)
+
+	resp, err := client.R().Get(url)
 	if err != nil {
 		return 0, "", err
 	}
-	var data WeatherAPIResponse
-	json.Unmarshal(resp.Body(), &data)
 
-	return data.Main.Temp, data.Weather[0].Description, nil
+	var data WeatherAPIResponse
+	err = json.Unmarshal(resp.Body(), &data)
+	if err != nil {
+		return 0, "", err
+	}
+
+	// sprawdź czy mamy dane
+	if len(data.CurrentCondition) == 0 || len(data.CurrentCondition[0].WeatherDesc) == 0 {
+		return 0, "", fmt.Errorf("brak danych pogodowych")
+	}
+
+	// parsowanie stringa na float
+	var temp float64
+	fmt.Sscanf(data.CurrentCondition[0].Temp_C, "%f", &temp)
+
+	desc := data.CurrentCondition[0].WeatherDesc[0].Value
+	return temp, desc, nil
 }

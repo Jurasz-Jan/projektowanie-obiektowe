@@ -13,7 +13,7 @@ RUN apt-get install -y php8.1
 RUN apt-get install -y php-sqlite3 sqlite3
 RUN apt-get install -y php-dom php-mysql php-xml
 
-# Install Composer
+RUN apt-get install -y php8.1-zip php8.1-curl php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash

@@ -7,66 +7,23 @@ struct ProductController: RouteCollection {
         products.get(use: index)
         products.get("create", use: create)
         products.post(use: store)
-        products.get(":id", "edit", use: edit)
-        products.post(":id", "update", use: update)
-        products.post(":id", "delete", use: delete)
     }
 
     func index(req: Request) async throws -> View {
-        let products = try await Product.query(on: req.db).with(\.$category).all()
-        struct ProductsContext: Encodable {
+        let products = try await Product.query(on: req.db).all()
+        struct ProductContext: Encodable {
             let products: [Product]
         }
-        return try await req.view.render("products", ProductsContext(products: products))
+        return try await req.view.render("products", ProductContext(products: products))
     }
 
     func create(req: Request) async throws -> View {
-        let categories = try await Category.query(on: req.db).all()
-        struct ProductFormContext: Encodable {
-            let product: Product?
-            let categories: [Category]
-        }
-        return try await req.view.render("product_form", ProductFormContext(product: nil, categories: categories))
+        return try await req.view.render("product_form")
     }
 
     func store(req: Request) async throws -> Response {
         let product = try req.content.decode(Product.self)
         try await product.save(on: req.db)
-        return req.redirect(to: "/products")
-    }
-
-    func edit(req: Request) async throws -> View {
-        guard let id = req.parameters.get("id", as: UUID.self),
-              let product = try await Product.find(id, on: req.db) else {
-            throw Abort(.notFound)
-        }
-        let categories = try await Category.query(on: req.db).all()
-        struct ProductFormContext: Encodable {
-            let product: Product?
-            let categories: [Category]
-        }
-        return try await req.view.render("product_form", ProductFormContext(product: product, categories: categories))
-    }
-
-    func update(req: Request) async throws -> Response {
-        guard let id = req.parameters.get("id", as: UUID.self),
-              let product = try await Product.find(id, on: req.db) else {
-            throw Abort(.notFound)
-        }
-        let updated = try req.content.decode(Product.self)
-        product.name = updated.name
-        product.price = updated.price
-        product.$category.id = updated.$category.id
-        try await product.update(on: req.db)
-        return req.redirect(to: "/products")
-    }
-
-    func delete(req: Request) async throws -> Response {
-        guard let id = req.parameters.get("id", as: UUID.self),
-              let product = try await Product.find(id, on: req.db) else {
-            throw Abort(.notFound)
-        }
-        try await product.delete(on: req.db)
         return req.redirect(to: "/products")
     }
 }

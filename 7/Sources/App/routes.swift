@@ -1,15 +1,16 @@
 import Vapor
 
 func routes(_ app: Application) throws {
-    let productController = ProductController()
-    let categoryController = CategoryController()
-    let userController = UserController()
-
+    // Strona główna
     app.get { req in
         return req.view.render("index")
     }
 
-    try app.register(collection: productController)
-    try app.register(collection: categoryController)
-    try app.register(collection: userController)
+    // Prosty test tekstowy
+    app.get("test") { req in
+        return "Działa!"
+    }
+
+    // Produkty
+    try app.register(collection: ProductController())
 }

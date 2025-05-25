@@ -13,14 +13,11 @@ final class Product: Model, Content {
     @Field(key: "price")
     var price: Double
 
-    @Parent(key: "category_id")
-    var category: Category
+    init() { }
 
-    init() {}
-
-    init(name: String, price: Double, categoryID: UUID) {
+    init(id: UUID? = nil, name: String, price: Double) {
+        self.id = id
         self.name = name
         self.price = price
-        self.$category.id = categoryID
     }
 }

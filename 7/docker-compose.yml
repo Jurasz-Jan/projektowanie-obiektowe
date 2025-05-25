@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -7,9 +7,13 @@ services:
       - "8080:8080"
     depends_on:
       - redis
+    volumes:
+      - .:/app
     environment:
-      REDIS_HOST: redis
+      - REDIS_HOST=redis
+    command: ["Run", "migrate", "--yes"]
+
   redis:
-    image: redis:latest
+    image: redis:alpine
     ports:
       - "6379:6379"

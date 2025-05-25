@@ -2,11 +2,9 @@
     #export("title") { Strona główna }
 
     #export("body") {
-        <h1>Witaj w AntiPatternsApp</h1>
+        <h1>Witaj w VaporAppSimple</h1>
         <ul>
             <li><a href="/products">Produkty</a></li>
-            <li><a href="/categories">Kategorie</a></li>
-            <li><a href="/users">Użytkownicy</a></li>
         </ul>
     }
 }

@@ -8,11 +8,6 @@
         #for(product in products):
             <li>
                 #(product.name) - #(product.price) zł
-                (Kategoria: #(product.category.title))
-                <a href="/products/#(product.id)/edit">Edytuj</a>
-                <form action="/products/#(product.id)/delete" method="POST" style="display:inline;">
-                    <button type="submit">Usuń</button>
-                </form>
             </li>
         #endfor
         </ul>

@@ -1,0 +1,19 @@
+﻿version: "3"
+services: 
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS=--openssl-legacy-provider
+    command: npm start
+  backend:
+    image: clue/json-server
+    ports:
+      - "3001:80"  # mapujemy port 80 kontenera na 3001 hosta
+    volumes:
+      - ./db.json:/data/db.json
+    command: --watch /data/db.json

@@ -1,0 +1,12 @@
+{
+  "products": [
+    { "id": 1, "name": "Website Design", "categoryId": 1 },
+    { "id": 2, "name": "SEO Optimization", "categoryId": 2 },
+    { "id": 3, "name": "Backend Development", "categoryId": 1 }
+  ],
+  "categories": [
+    { "id": 1, "name": "Web" },
+    { "id": 2, "name": "Marketing" }
+  ],
+  "orders": []
+}

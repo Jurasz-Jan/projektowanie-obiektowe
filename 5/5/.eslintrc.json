@@ -1,10 +1,26 @@
 {
-    "env": { "browser": true, "es2021": true },
-    "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
     "parser": "@typescript-eslint/parser",
-    "plugins": ["react", "@typescript-eslint"],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "@typescript-eslint"
+    ],
     "rules": {
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "no-console": "warn"
     }
   }
   

@@ -27,6 +27,7 @@ function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const { cart, setCart } = useAppContext();
+  
 
   useEffect(() => {
     axios.get("http://localhost:3001/products").then((res) => setProducts(res.data));
@@ -56,7 +57,7 @@ function Cart() {
   return (
     <div>
       <h2>Cart</h2>
-      <ul>{cart.map((item, i) => <li key={i}>{item.name}</li>)}</ul>
+      <ul>{cart.map((item, i) => <li key={item.id}>{item.name}</li>)}</ul>
       <Payments />
     </div>
   );
@@ -93,9 +94,10 @@ function Payments() {
 
 export default function App() {
   const [cart, setCart] = useState<Product[]>([]);
+  const contextValue = useMemo(() => ({ cart, setCart }), [cart]);
 
   return (
-    <AppContext.Provider value={{ cart, setCart }}>
+    <AppContext.Provider value={contextValue}>
       <Router>
         <h1>Simple Shop</h1>
         <nav>

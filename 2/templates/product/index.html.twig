@@ -15,7 +15,10 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+                <li>Id: {{ product.id }}</li>
+                <li>Name: {{ product.name }}</li>
+                <li>Price: {{ product.price }}</li>
+
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>

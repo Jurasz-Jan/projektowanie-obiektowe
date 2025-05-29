@@ -1,0 +1,27 @@
+<!-- Shows single category details -->
+#extend("base"):
+    #export("body"):
+        <div class="container">
+            <h1>#(category.name)</h1>
+            
+            <h3 class="mt-4">Products in this Category</h3>
+            #if(category.products.isEmpty):
+                <p>No products in this category</p>
+            #else:
+                <ul>
+                    #for(product in category.products):
+                        <li>
+                            <a href="/products/#(product.id)">#(product.name)</a>
+                            - #(product.price) PLN
+                        </li>
+                    #endfor
+                </ul>
+            #endif
+            
+            <div class="mt-4">
+                <a href="/categories" class="btn btn-secondary">Back to Categories</a>
+                <a href="/categories/#(category.id)/edit" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    #endexport
+#endextend

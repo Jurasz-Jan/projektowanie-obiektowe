@@ -1,16 +1,12 @@
+// Sources/App/routes.swift
+import Fluent
 import Vapor
 
 func routes(_ app: Application) throws {
-    // Strona główna
-    app.get { req in
-        return req.view.render("index")
+    app.get { req async throws in
+        return try await req.view.render("welcome")
     }
 
-    // Prosty test tekstowy
-    app.get("test") { req in
-        return "Działa!"
-    }
-
-    // Produkty
     try app.register(collection: ProductController())
+    try app.register(collection: CategoryController())
 }

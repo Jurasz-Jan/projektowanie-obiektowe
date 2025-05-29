@@ -1,0 +1,25 @@
+#extend("base"):
+    #export("title", "Category Details")
+    #export("body"):
+        <h1>Category Details</h1>
+        <p><strong>Name:</strong> #(category.name)</p>
+
+        <h2>Products in this Category:</h2>
+        #if(category.products.count > 0):
+            <ul>
+                #for(product in category.products):
+                    <li><a href="/products/#(product.id)">#(product.name)</a></li>
+                #endfor
+            </ul>
+        #else:
+            <p>No products in this category.</p>
+        #endif
+
+        <div class="actions">
+            <a href="/categories/#(category.id)/edit">Edit Category</a>
+            <form action="/categories/#(category.id)/delete" method="post" class="delete-form">
+                <button type="submit" class="delete-button">Delete Category</button>
+            </form>
+        </div>
+        <a href="/categories" class="back-link">Back to Categories</a>
+    #endexport

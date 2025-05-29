@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>#export("title", "Default Title")</title>
+</head>
+<body>
+    #export("body")
+</body>
+</html>

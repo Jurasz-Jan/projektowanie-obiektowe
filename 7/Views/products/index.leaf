@@ -1,0 +1,35 @@
+#extend("base"):
+    #export("title", "Products")
+    #export("body"):
+        <h1>Products</h1>
+        <a href="/products/create" class="button-link">Add New Product</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                #for(product in products):
+                    <tr>
+                        <td><a href="/products/#(product.id)">#(product.name)</a></td>
+                        <td>#(product.description)</td>
+                        <td>#(product.price)</td>
+                        <td class="actions">
+                            <a href="/products/#(product.id)/edit">Edit</a>
+                            <form action="/products/#(product.id)/delete" method="post" class="delete-form">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                #endfor
+                #if(products.count == 0):
+                    <tr><td colspan="4">No products found.</td></tr>
+                #endif
+            </tbody>
+        </table>
+        <a href="/" class="back-link">Back to Home</a>
+    #endexport

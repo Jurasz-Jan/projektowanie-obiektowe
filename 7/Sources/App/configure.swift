@@ -1,24 +1,26 @@
+// Sources/App/configure.swift
 import Vapor
 import Fluent
 import FluentSQLiteDriver
 import Leaf
-import Redis
 
-public func configure(_ app: Application) throws {
-    // Leaf (HTML templates)
-    app.views.use(.leaf)
+// configures your application
+public func configure(_ app: Application) async throws {
+    // uncomment to serve files from /Public folder
+    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    // SQLite database
+    // Używamy SQLite, nazwa pliku bazy danych to 'db.sqlite' w katalogu /app/db kontenera
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
 
-    // Redis
-    if let redisURL = Environment.get("REDIS_HOST") {
-        try app.redis.configuration = try RedisConfiguration(hostname: redisURL)
-    }
+    // Rejestracja migracji
+    app.migrations.add(CreateProducts())
+    app.migrations.add(CreateCategories())
+    app.migrations.add(CreateProductCategoryPivot()) // Dodajemy migrację dla relacji
 
-    // Fluent migration support
-    app.migrations.add(CreateProduct())
-
-    // Register routes
+    // Konfiguracja silnika szablonów Leaf
+    app.views.use(.leaf)
+    app.leaf.configuration.rootDirectory = "/app/Resources/Views"
+    app.leaf.cache.isEnabled = false
+    // register routes
     try routes(app)
 }

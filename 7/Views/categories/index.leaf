@@ -1,0 +1,31 @@
+#extend("base"):
+    #export("title", "Categories")
+    #export("body"):
+        <h1>Categories</h1>
+        <a href="/categories/create" class="button-link">Add New Category</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                #for(category in categories):
+                    <tr>
+                        <td><a href="/categories/#(category.id)">#(category.name)</a></td>
+                        <td class="actions">
+                            <a href="/categories/#(category.id)/edit">Edit</a>
+                            <form action="/categories/#(category.id)/delete" method="post" class="delete-form">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                #endfor
+                #if(categories.count == 0):
+                    <tr><td colspan="2">No categories found.</td></tr>
+                #endif
+            </tbody>
+        </table>
+        <a href="/" class="back-link">Back to Home</a>
+    #endexport

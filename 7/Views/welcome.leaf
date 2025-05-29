@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Vapor CRUD</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #0056b3; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+        .nav { margin-top: 20px; }
+        .nav a { margin-right: 15px; background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; }
+        .nav a:hover { background-color: #0056b3; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Vapor CRUD Application!</h1>
+        <p>This is a simple application demonstrating CRUD operations with Vapor, Fluent (SQLite), and Leaf.</p>
+
+        <div class="nav">
+            <a href="/products">View Products</a>
+            <a href="/categories">View Categories</a>
+        </div>
+    </div>
+</body>
+</html>

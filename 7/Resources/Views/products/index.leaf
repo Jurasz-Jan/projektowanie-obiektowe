@@ -1,0 +1,36 @@
+<!-- Lists all products -->
+#extend("base"):
+    #export("body"):
+        <div class="container">
+            <h1>Products</h1>
+            <a href="/products/create" class="btn btn-primary mb-3">Create New Product</a>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #for(product in products):
+                        <tr>
+                            <td>#(product.name)</td>
+                            <td>#(product.description)</td>
+                            <td>#(product.price) PLN</td>
+                            <td>
+                                <a href="/products/#(product.id)" class="btn btn-sm btn-info">View</a>
+                                <a href="/products/#(product.id)/edit" class="btn btn-sm btn-warning">Edit</a>
+                                <form action="/products/#(product.id)/delete" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    #endfor
+                </tbody>
+            </table>
+        </div>
+    #endexport
+#endextend

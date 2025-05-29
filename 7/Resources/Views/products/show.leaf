@@ -1,0 +1,28 @@
+<!-- Shows single product details -->
+#extend("base"):
+    #export("body"):
+        <div class="container">
+            <h1>#(product.name)</h1>
+            
+            <dl class="row">
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">#(product.description)</dd>
+                
+                <dt class="col-sm-3">Price</dt>
+                <dd class="col-sm-9">#(product.price) PLN</dd>
+                
+                <dt class="col-sm-3">Categories</dt>
+                <dd class="col-sm-9">
+                    #for(category in product.categories):
+                        <span class="badge bg-secondary">#(category.name)</span>
+                    #endfor
+                </dd>
+            </dl>
+            
+            <div class="mt-4">
+                <a href="/products" class="btn btn-secondary">Back to Products</a>
+                <a href="/products/#(product.id.uuidString)/edit" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    #endexport
+#endextend

@@ -1,0 +1,32 @@
+#extend("base"):
+    #export("title", "Edit Product")
+    #export("body"):
+        <h1>Edit Product</h1>
+        <form action="/products/#(product.id)/edit" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="#(product.name)" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required>#(product.description)</textarea><br>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" value="#(product.price)" required><br>
+
+            <h2>Assign Categories:</h2>
+            <div class="checkbox-group">
+                #for(category in allCategories):
+                    <label>
+                        <input type="checkbox" name="categoryIDs[]" value="#(category.id)"
+                            #if(product.categories.contains(where: { $0.id == category.id })):checked#endif>
+                        #(category.name)
+                    </label>
+                #endfor
+                #if(allCategories.count == 0):
+                    <p>No categories available. Please create some first.</p>
+                #endif
+            </div>
+
+            <button type="submit">Update Product</button>
+        </form>
+        <a href="/products/#(product.id)" class="back-link">Back to Product Details</a>
+    #endexport

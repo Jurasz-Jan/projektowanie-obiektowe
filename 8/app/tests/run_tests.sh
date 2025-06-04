@@ -1,12 +1,9 @@
-#!/bin/bash
-echo "Czekam aż serwer się uruchomi..."
-sleep 5
+Write-Host "🧪 Testy jednostkowe:"
+cd app
+python -m unittest discover -s tests/unit -p "*.py" -t .
 
-echo "✅ Testy jednostkowe:"
-python3 -m unittest discover -s /app/tests/unit
+Write-Host "`n🧪 Testy API:"
+python -m unittest discover -s tests/api -p "*.py" -t .
 
-echo "✅ Testy API:"
-python3 -m unittest discover -s /app/tests/api
-
-echo "✅ Testy WebDriver:"
-python3 -m unittest discover -s /app/tests/webdriver
+Write-Host "`n🧪 Testy WebDriver:"
+python -m unittest discover -s tests/webdriver -p "*.py" -t .

@@ -1,4 +1,6 @@
-Jeszcze muszę pamiętać o husky precommit
+# Jeszcze poprawiam README i dema
+
+
 
 Zadanie 1 Tytuł
 
@@ -108,3 +110,6 @@ Sources/App/Models/Category.swift, Sources/App/Controllers/CategoryController.sw
 
 ❌ 5.0 wymaganie 5 – Należy przygotować wdrożenie na Heroku (obsługa PORT, Dockerfile, Procfile, GitHub + Heroku deploy)
 (brakuje Dockerfile, Procfile, oraz instrukcji deploymentu)
+
+
+# jeszcze trzeba dodać husky precommit

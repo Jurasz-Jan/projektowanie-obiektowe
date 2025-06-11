@@ -153,3 +153,8 @@ Link do commita: (26a893edd65709e3468990dea3e5c08b5079d896)
 ❌ 4.0 wymaganie 3
 ❌ 4.5 wymaganie 4
 ❌ 5.0 wymaganie 5
+
+
+![image](https://github.com/user-attachments/assets/f3a308b2-afdc-47fe-b0ce-a4fe135beac9)
+![image](https://github.com/user-attachments/assets/cdd67cd6-dbd2-49a5-94f8-a2dff3adb024)
+
